@@ -12,23 +12,23 @@ func newConnect(c net.Conn) {
 		req := make([]byte, 128)
 		readLen, e := c.Read(req)
 		if e != nil {
-			fmt.Println(rip, "err Read e is ", e)
+			fmt.Println(rip, "err Read e is ", e, "<br/>")
 			c.Close()
-			fmt.Println("exit link:", rip)
+			fmt.Println("exit link:", rip, "<br/>")
 			return
 		}
 
 		if readLen == 0 {
-			fmt.Println(rip, "disconnect!")
+			fmt.Println(rip, "disconnect!, <br/>")
 			c.Close()
 			return // 链接已经断开
 		}
-		fmt.Println(string(req[:readLen]))
+		fmt.Println(string(req[:readLen]), "<br/>")
 		c.Write(req[:readLen])
 	}
 }
 func main() {
-	fmt.Println("starting....")
+	fmt.Println("starting...., <br/>")
 	str := fmt.Sprintf(":%d", 3721)
 	l, e := net.Listen("tcp", str)
 	if e != nil {
@@ -41,7 +41,7 @@ func main() {
 		if e != nil {
 			fmt.Println(e)
 		}
-		fmt.Println("new connect!! ", conn.RemoteAddr().String())
+		fmt.Println("new connect!! ", conn.RemoteAddr().String(), "<br/>")
 		go newConnect(conn)
 	}
 }
